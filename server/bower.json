@@ -1,0 +1,9 @@
+{
+  "name": "git-projects-health-001-server",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
