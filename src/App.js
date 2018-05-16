@@ -82,7 +82,7 @@ class App extends Component {
 
     const response = await axios({
       method: 'POST',
-      url: 'http://localhost:5000/result',
+      url: '/result',
       headers: {
         'Content-Type': 'application/json',
       },
