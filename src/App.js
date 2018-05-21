@@ -108,15 +108,16 @@ class App extends Component {
   }
 
   mapResult(data) {
-    const {zodEffect} = data || {};
+    const {basic_info: {elemDesc: zodEffect}} = data || {};
+    console.log('>>zod_effect<<', zodEffect);
     const zodKeys = Object.keys(zodEffect || []);
     const results = zodKeys.reduce((current, zodKey) => {
       const details = zodEffect[zodKey];
       const detailKeys = Object.keys(details);
       return [...current, ...detailKeys.reduce((current, detailKey) => {
         const detail = details[detailKey] || {};
-        return detail.patho
-          ? [...current, detail.patho]
+        return detail
+          ? [...current, detail]
           : current;
       }, []).filter(detail => detail && detail.txt && detail.txt.trim())];
     }, []);
@@ -276,7 +277,10 @@ class App extends Component {
                     <Row className={s.resultRow} type="flex" justify="start" gutter={8}>
                       <Col span={24}>
                         <Alert
-                          description={(<div style={{fontSize:`${FONT_SIZES[result.score]}`,lineHeight:`${LINE_HEIGHTS[result.score]}`}}>{result.txt}</div>)}
+                          description={(<div style={{
+                            fontSize: `${FONT_SIZES[result.score]}`,
+                            lineHeight: `${LINE_HEIGHTS[result.score]}`
+                          }}>{result.txt}</div>)}
                           type={ALERT_TYPES[`${result.score}`]}
                         />
                       </Col>
