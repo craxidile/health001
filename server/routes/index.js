@@ -1,5 +1,5 @@
 const axios = require('axios/index');
-const qs = require('querystring');
+const qs = require('qs');
 
 const express = require('express');
 const router = express.Router();
@@ -8,6 +8,21 @@ const router = express.Router();
 // router.get('/', (req, res) => {
 //   res.render('index', { title: 'Express' });
 // });
+
+router.post('/rx', async (req, res) => {
+  console.log('>>target<<', qs.stringify(req.body));
+  const response = await axios({
+    method: 'POST',
+    url: 'http://www.venitaclinic.com/CloudConsultant/getRx.php',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    data: qs.stringify(req.body),
+  });
+  const { status, data } = response;
+  console.log(status);
+  res.send(data);
+});
 
 router.post('/result', async (req, res) => {
   const {
@@ -79,6 +94,6 @@ router.post('/result', async (req, res) => {
   const { status, data } = response;
   console.log(status);
   res.send(data);
-})
+});
 
 module.exports = router;
